@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>移动端触摸事件</title>
+    <meta name="author" content="rainna"/>
+    <meta name="keywords" content="rainna's js lib"/>
+    <meta name="description" content="移动端触摸滑动"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+</head>
+<body>
+<div id="a">touchstart：<span></span></div>
+<div id="b">touchend：<span></span></div>
+<div id="c">位移：<span></span></div>
+<script src="js/jquery.min.js"></script>
+
+<script>
+    //判断设备是否支持touch事件
+    var isTouch = ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch;
+    if (!!isTouch)console.log("支持touchs事件");
+
+    var x=0;
+    var y=0;
+
+    var touch=document;
+
+    touch.addEventListener('touchstart',function(e){
+        console.log("touchstart:");
+        console.log(e.changedTouches[0] );
+        x=e.changedTouches[0].clientX;
+        y=e.changedTouches[0].clientY;
+        $("#a span").html("X:"+e.changedTouches[0].clientX+"  Y:"+e.changedTouches[0].clientY)
+    }, false);
+    touch.addEventListener('touchmove',function(e){
+//        console.log("touchmove");
+        $("#b span").html("X:"+e.changedTouches[0].clientX+"  Y:"+e.changedTouches[0].clientY);
+        $("#c span").html("X:"+(e.changedTouches[0].clientX-x)+"  Y:"+(e.changedTouches[0].clientY-y));
+    }, false);
+    touch.addEventListener('touchend',function(e){
+        console.log("touchend:");
+        console.log(e.changedTouches[0] );
+        $("#b span").html("X:"+e.changedTouches[0].clientX+"  Y:"+e.changedTouches[0].clientY)
+
+    }, false);
+
+
+</script>
+</body>
+</html>
