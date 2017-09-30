@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>多点触控</title>
+    <meta name="author" content="liuxiaotang"/>
+    <meta name="keywords" content="my second touch()"/>
+    <meta name="description" content="多点触控"/>
+    <!--<link rel="stylesheet" href="css/bootstrap.min.css"/>-->
+</head>
+<style>
+    *{margin: 0;padding: 0;}
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<body>
+<div><a href="index.html">单点触控</a>&nbsp;&nbsp;&nbsp;<a href="index2.html">多点触控</a></div>
+<div id="touchArea" style="width: 100%;height: 100%;">
+    <div id="a"></div>
+    <div id="f1">手指1：<span></span></div>
+    <div id="f2">手指2：<span></span></div>
+    <div id="f3">手指3：<span></span></div>
+    <div id="f4">手指4：<span></span></div>
+    <div id="f5">手指5：<span></span></div>
+</div>
+
+
+<script src="js/jquery.min.js"></script>
+
+<script>
+    //面向对像的方法
+    var myTouch={
+        isTouch : ('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch,//判断是否支持触摸事件
+        obj:document,
+        touchstart: function(){
+            this.obj.addEventListener('touchstart',function(e){
+                e.preventDefault();
+                console.log("touchstart:");
+                console.log(e);
+                $("#a").html(e.touches.length+"点触控");
+            }, false);
+        },
+    touchmove: function(){
+            this.obj.addEventListener('touchmove',function(e){
+                e.preventDefault();
+                $("#f1 span").html("X:"+e.touches[0].clientX+"  Y:"+e.touches[0].clientY);
+                $("#f2 span").html("X:"+e.touches[1].clientX+"  Y:"+e.touches[1].clientY);
+                $("#f3 span").html("X:"+e.touches[2].clientX+"  Y:"+e.touches[2].clientY);
+                $("#f4 span").html("X:"+e.touches[3].clientX+"  Y:"+e.touches[3].clientY);
+                $("#f5 span").html("X:"+e.touches[4].clientX+"  Y:"+e.touches[4].clientY);
+            }, false);
+        }
+    };
+    myTouch.obj=document.getElementById('touchArea');
+    myTouch.touchstart();
+    myTouch.touchmove();
+
+</script>
+</body>
+</html>
